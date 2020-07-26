@@ -7,13 +7,15 @@ class SysDashApi
 {
     protected $token;
     protected $client;
+    protected $baseUrl;
 
-    public function __construct($token)
+    public function __construct($baseURL, $token)
     {
         $this->token = $token;
+        $this->baseUrl = $baseURL;
 
         $this->client = new \GuzzleHttp\Client([
-            'base_uri' => 'http://sysdash.local/api/',
+            'base_uri' => $this->baseUrl. 'api/',
         ]);
     }
 
