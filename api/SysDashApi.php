@@ -8,14 +8,16 @@ class SysDashApi
     protected $token;
     protected $client;
     protected $baseUrl;
+    protected $systemID;
 
-    public function __construct($baseURL, $token)
+    public function __construct($baseURL, $token, $systemID)
     {
         $this->token = $token;
         $this->baseUrl = $baseURL;
+        $this->systemID = $systemID;
 
         $this->client = new \GuzzleHttp\Client([
-            'base_uri' => $this->baseUrl. 'api/',
+            'base_uri' => $this->baseUrl . 'api/',
         ]);
     }
 
@@ -23,12 +25,12 @@ class SysDashApi
     {
         $params = ['softwareList' => $software];
 
-        return $this->post('system/1/softwareList', $params);
+        return $this->post('system/' . $this->systemID . '/softwareList', $params);
     }
 
     public function sendOS($os)
     {
-        return $this->post('system/1/os', $os);
+        return $this->post('system/' . $this->systemID . '/os', $os);
     }
 
     protected function post($url, $data)

@@ -21,7 +21,7 @@ print_r($collectedData);
 
 $token = $config['server']['token'];
 
-$api = new SysDashApi($config['server']['baseUrl'], $token);
+$api = new SysDashApi($config['server']['baseUrl'], $token, $config['server']['systemID']);
 
 if (isset($collectedData['software']))
     $api->sendSoftware($collectedData['software']);
