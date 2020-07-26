@@ -19,7 +19,7 @@ foreach ($config['collectors'] as $collector)
 
 print_r($collectedData);
 
-$token = '123';
+$token = $config['server']['token'];
 
 $api = new SysDashApi($config['server']['baseUrl'], $token);
 
