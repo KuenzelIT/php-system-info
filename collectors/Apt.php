@@ -14,7 +14,7 @@ class Apt
 
     public function appendData($data)
     {
-        if (!isset($data))
+        if (!isset($data['software']))
             $data['software'] = [];
 
         $data['software'] = array_merge($data['software'], $this->getSoftwareList());
