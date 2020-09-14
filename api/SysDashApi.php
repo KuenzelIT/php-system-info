@@ -12,8 +12,8 @@ class SysDashApi
 
     public function __construct($baseURL, $token, $systemID)
     {
-        $this->token = $token;
         $this->baseUrl = $baseURL;
+        $this->token = $token;
         $this->systemID = $systemID;
 
         $this->client = new \GuzzleHttp\Client([
