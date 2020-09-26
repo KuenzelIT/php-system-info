@@ -18,6 +18,7 @@ class Apt
             $data['software'] = [];
 
         $data['software'] = array_merge($data['software'], $this->getSoftwareList());
+        $data['hasPMUpgrades'] = $this->hasAnyUpgrades();
 
         return $data;
     }
@@ -58,5 +59,30 @@ class Apt
             'version' => null,
             'installed' => false
         ];
+    }
+
+    public function getUpgradable()
+    {
+        exec('apt list --upgradable 2>&1', $output);
+
+        return array_values(array_filter($output, function ($line) {
+            if (empty($line))
+                return false;
+
+            if (strpos($line, 'WARNING: ') === 0)
+                return false;
+
+            if (strpos($line, 'Auflistung...') === 0)
+                return false;
+
+            return true;
+        }));
+    }
+
+    public function hasAnyUpgrades()
+    {
+        $upgradableList = $this->getUpgradable();
+
+        return count($upgradableList) > 0;
     }
 }

@@ -6,31 +6,31 @@ require "vendor/autoload.php";
 require "functions.php";
 $config = require "config.php";
 
-$collectedData = [];
+$data = [];
 
 foreach ($config['collectors'] as $collector)
 {
     $class = $collector['collector'];
-    $data = $collector['config'];
-    $collector = new $class($data);
+    $collectorConfig = $collector['config'];
+    $collector = new $class($collectorConfig);
 
-    $collectedData = $collector->appendData($collectedData);
+    $data = $collector->appendData($data);
 }
 
-print_r($collectedData);
+print_r($data);
 
 $token = $config['server']['token'];
 
 $api = new SysDashApi($config['server']['baseUrl'], $token, $config['server']['systemID']);
 
-if (isset($collectedData['software']))
+if (isset($data['software']) && isset($data['hasPMUpgrades']))
 {
     echo "Sending software info...";
-    $api->sendSoftware($collectedData['software']);
+    $api->sendSoftware($data['software'], $data['hasPMUpgrades']);
 }
 
-if (isset($collectedData['os']))
+if (isset($data['os']))
 {
     echo "Sending os info...";
-    $api->sendOS($collectedData['os']);
+    $api->sendOS($data['os']);
 }

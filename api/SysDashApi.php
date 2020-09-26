@@ -21,9 +21,9 @@ class SysDashApi
         ]);
     }
 
-    public function sendSoftware($software)
+    public function sendSoftware($software, $hasPMUpgrades)
     {
-        $params = ['softwareList' => $software];
+        $params = ['softwareList' => $software, 'hasPMUpgrades' => $hasPMUpgrades];
 
         return $this->post('system/' . $this->systemID . '/softwareList', $params);
     }
