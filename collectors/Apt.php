@@ -75,7 +75,7 @@ class Apt
             if (strpos($line, 'Auflistung...') === 0)
                 return false;
 
-            if (strpos($line, 'Listing... Done') === 0)
+            if (strpos($line, 'Listing...') === 0)
                 return false;
 
             return true;
