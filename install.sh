@@ -18,6 +18,15 @@ echo 'Installing dependencies...'
 sudo apt-get install php7.3-cli git cron-apt
 echo 'Done'
 
+
+
+read -p 'We are now going to download the reporter files into php-system-info. Do you want to proceed (y/n)?' yesno
+if [[ ! $yesno =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
+
+
 echo 'Cloning repo to php-system-info...'
 git clone https://github.com/KuenzelIT/php-system-info
 echo 'Done'
