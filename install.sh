@@ -46,8 +46,10 @@ then
     exit 1
 fi
 
+cwd=$(pwd)
+
 echo "Creating schedule in /etc/cron.d/php-system-info ..."
-sudo echo "* * * * * www-data php /var/www/php-system-info/getSystemInfo.php" > /etc/cron.d/php-system-info
+echo "* * * * * $USER php $cwd/getSystemInfo.php" | sudo tee -a /etc/cron.d/php-system-info
 echo "Done"
 
 
@@ -57,3 +59,5 @@ if [[ ! $yesno =~ ^[Yy]$ ]]
 then
     exit 1
 fi
+
+sudo rm /etc/cron-apt/action.d/3-download
