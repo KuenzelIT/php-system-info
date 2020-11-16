@@ -49,7 +49,7 @@ fi
 cwd=$(pwd)
 
 echo "Creating schedule in /etc/cron.d/php-system-info ..."
-echo "* * * * * $USER php $cwd/getSystemInfo.php" | sudo tee -a /etc/cron.d/php-system-info
+echo "* * * * * $USER php $cwd/getSystemInfo.php" | sudo tee /etc/cron.d/php-system-info
 echo "Done"
 
 
@@ -60,4 +60,7 @@ then
     exit 1
 fi
 
-sudo rm /etc/cron-apt/action.d/3-download
+FILE=/etc/cron-apt/action.d/3-download
+if test -f "$FILE"; then
+    sudo rm $FILE
+fi
