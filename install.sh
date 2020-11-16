@@ -28,14 +28,32 @@ echo 'Downloading config...'
 wget $1 -O config.php
 echo  'Done'
 
-# Ask for target directory, default is /var/www?
-# cd to that directory
-#git clone https://github.com/KuenzelIT/php-system-info
-#cd php-system-info
 
-# Use params to get the config
-# wget {{ getConfigUrl(system) }} -O config.php
+read -p 'Do you want to execute the reporting script for the first time (y/n)?' yesno
+if [[ ! $yesno =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
 
-# Ask if the system info script should be executed for the first time
+echo "Running script..."
+php getSystemInfo.php
+echo "Done"
 
-# Ask if the schedule should be installed
+
+read -p 'Do you want to create the schedule for the script to be executed?' yesno
+if [[ ! $yesno =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
+
+echo "Creating schedule in /etc/cron.d/php-system-info ..."
+sudo echo "* * * * * www-data php /var/www/php-system-info/getSystemInfo.php" > /etc/cron.d/php-system-info
+echo "Done"
+
+
+echo 'cron-apt executes does two things in its actions: the first is updating the sources and the second thing is autocleaning and automatically upgrading.'
+read -p 'Do you want to disable automatic cleaning and upgrading (updating stays, because it is needed for sysdash) (y/n)? ' yesno
+if [[ ! $yesno =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
