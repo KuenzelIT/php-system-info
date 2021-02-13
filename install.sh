@@ -1,26 +1,26 @@
 #!/bin/bash
 
 # Install php
-read -p "php-system-info will be installed to the current directory. Do you want to proceed (y/n)? " yesno
+read -p "sysdash_reporter_php will be installed to the current directory. Do you want to proceed (y/n)? " yesno
 if [[ ! $yesno =~ ^[Yy]$ ]]
 then
     exit 1
 fi
 
 
-read -p 'The dependencies php, git and cron-apt need to be installed. Do you want to proceed (y/n)?' yesno
+read -p 'The dependencies php, git and cron-apt need to be installed. Do you want to proceed (y/n)? ' yesno
 if [[ ! $yesno =~ ^[Yy]$ ]]
 then
     exit 1
 fi
 
 echo 'Installing dependencies...'
-sudo apt-get install php7.3-cli git cron-apt
+sudo apt-get install php7.4-cli git cron-apt
 echo 'Done'
 
 
 
-read -p 'We are now going to download the reporter files into php-system-info. Do you want to proceed (y/n)?' yesno
+read -p 'We are now going to download the reporter files into php-system-info. Do you want to proceed (y/n)? ' yesno
 if [[ ! $yesno =~ ^[Yy]$ ]]
 then
     exit 1
@@ -38,7 +38,7 @@ wget $1 -O config.php
 echo  'Done'
 
 
-read -p 'Do you want to execute the reporting script for the first time (y/n)?' yesno
+read -p 'Do you want to execute the reporting script for the first time (y/n)? ' yesno
 if [[ ! $yesno =~ ^[Yy]$ ]]
 then
     exit 1
@@ -49,7 +49,7 @@ php getSystemInfo.php
 echo "Done"
 
 
-read -p 'Do you want to create the schedule for the script to be executed?' yesno
+read -p 'Do you want to create the schedule for the script to be executed? ' yesno
 if [[ ! $yesno =~ ^[Yy]$ ]]
 then
     exit 1
@@ -73,3 +73,6 @@ FILE=/etc/cron-apt/action.d/3-download
 if test -f "$FILE"; then
     sudo rm $FILE
 fi
+
+
+echo 'Done completely! Thanks for using SysDash!'
