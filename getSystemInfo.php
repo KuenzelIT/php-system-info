@@ -25,12 +25,12 @@ $api = new SysDashApi($config['server']['baseUrl'], $token, $config['server']['s
 
 if (isset($data['software']) && isset($data['hasPMUpgrades']))
 {
-    echo "Sending software info...";
+    echo "Sending software info...\n";
     $api->sendSoftware($data['software'], $data['hasPMUpgrades']);
 }
 
 if (isset($data['os']))
 {
-    echo "Sending os info...";
+    echo "Sending os info...\n";
     $api->sendOS($data['os']);
 }
