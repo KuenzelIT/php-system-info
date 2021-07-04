@@ -25,6 +25,9 @@ $api = new SysDashApi($config['server']['baseUrl'], $token, $config['server']['s
 
 if (isset($data['software']) && isset($data['hasPMUpgrades']))
 {
+    if (count($data['software'] === 0))
+        echo "Software list is empty and will be ignored by the server\n";
+
     echo "Sending software info...\n";
     $api->sendSoftware($data['software'], $data['hasPMUpgrades']);
 }
